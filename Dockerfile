@@ -3,21 +3,21 @@ ARG IMAGE_VERSION=9-jre11-slim
 
 ARG JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
 
-FROM tomcat:$IMAGE_VERSION
+FROM tomcat:9-jre11-slim
 
 LABEL maintainer="Tim Sutton<tim@linfiniti.com>"
 
-ARG GS_VERSION=2.17.2
+ARG GS_VERSION=2.18.0
 
 ARG WAR_URL=http://downloads.sourceforge.net/project/geoserver/GeoServer/${GS_VERSION}/geoserver-${GS_VERSION}-war.zip
 ARG STABLE_PLUGIN_URL=https://sourceforge.net/projects/geoserver/files/GeoServer/${GS_VERSION}/extensions
 
 #Install extra fonts to use with sld font markers
-RUN apt-get -y update; apt-get install -y fonts-cantarell lmodern ttf-aenigma ttf-georgewilliams ttf-bitstream-vera \
+RUN apt-get -y update; apt-get install -y fonts-cantarell lmodern ttf-aenigma ttf-georgewilliams ttf-bitstream-vera vim \
     ttf-sjfonts tv-fonts build-essential libapr1-dev libssl-dev  gdal-bin libgdal-java wget zip curl xsltproc certbot \
     certbot  cabextract
 
-RUN wget http://ftp.br.debian.org/debian/pool/contrib/m/msttcorefonts/ttf-mscorefonts-installer_3.6_all.deb && \
+RUN wget http://ftp.debian.org/debian/pool/contrib/m/msttcorefonts/ttf-mscorefonts-installer_3.6_all.deb && \
     dpkg -i ttf-mscorefonts-installer_3.6_all.deb && rm ttf-mscorefonts-installer_3.6_all.deb
 
 RUN set -e \
